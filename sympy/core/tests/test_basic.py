@@ -17,6 +17,8 @@ from sympy.functions.special.gamma_functions import gamma
 from sympy.integrals.integrals import Integral
 from sympy.functions.elementary.exponential import exp
 from sympy.testing.pytest import raises, warns_deprecated_sympy
+from sympy import sign, Abs
+from sympy.abc import x
 
 b1 = Basic()
 b2 = Basic(b1)
@@ -331,3 +333,9 @@ def test_generic():
 
     class B(A[T]):
         pass
+
+
+def test_rewrite_abs():
+    from sympy import Piecewise, Eq
+    assert sign(x).rewrite(abs) == sign(x).rewrite(Abs)
+    assert sign(x).rewrite(abs) == Piecewise((0, Eq(x, 0)), (x / Abs(x), True))
