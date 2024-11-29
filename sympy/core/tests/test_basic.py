@@ -340,7 +340,7 @@ def test_rewrite_abs():
     """
     Test that rewrite(abs) behaves identically to rewrite(Abs).
 
-    Related to issue 27327: https://github.com/sympy/sympy/issues/27327
+    Related to issue 27323: https://github.com/sympy/sympy/issues/27323
     Ensure rewrite(abs) calls rewrite(Abs) and produces expected results.
     """
     x = Symbol('x')
