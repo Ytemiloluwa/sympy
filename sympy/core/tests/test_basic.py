@@ -17,8 +17,9 @@ from sympy.functions.special.gamma_functions import gamma
 from sympy.integrals.integrals import Integral
 from sympy.functions.elementary.exponential import exp
 from sympy.testing.pytest import raises, warns_deprecated_sympy
-from sympy import sign, Abs
-from sympy.abc import x
+from sympy.functions.elementary.complexes import Abs, sign
+from sympy.functions.elementary.piecewise import Piecewise
+from sympy.core.relational import Eq
 
 b1 = Basic()
 b2 = Basic(b1)
@@ -336,6 +337,12 @@ def test_generic():
 
 
 def test_rewrite_abs():
-    from sympy import Piecewise, Eq
+    """
+    Test that rewrite(abs) behaves identically to rewrite(Abs).
+
+    Related to issue 27327: https://github.com/sympy/sympy/issues/27327
+    Ensure rewrite(abs) calls rewrite(Abs) and produces expected results.
+    """
+    x = Symbol('x')
     assert sign(x).rewrite(abs) == sign(x).rewrite(Abs)
     assert sign(x).rewrite(abs) == Piecewise((0, Eq(x, 0)), (x / Abs(x), True))
